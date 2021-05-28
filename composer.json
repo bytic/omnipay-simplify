@@ -1,0 +1,48 @@
+{
+  "name": "bytic/omnipay-simplify",
+  "type": "library",
+  "license": "MIT",
+  "description": "Mastercard Simplify driver for the Omnipay PHP library\n\n",
+  "keywords": [
+    "simplify",
+    "mastercard",
+    "driver",
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment"
+  ],
+  "homepage": "https://github.com/bytic/omnipay-simplify",
+  "authors": [
+    {
+      "name": "Gabriel Solomon",
+      "email": "hello@gabrielsolomon.ro"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ByTIC\\Omnipay\\Simplify\\": "src/"
+    },
+    "classmap": [
+      "lib"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ByTIC\\Omnipay\\Simplify\\Tests\\Fixtures\\": "tests/fixtures",
+      "ByTIC\\Omnipay\\Simplify\\Tests\\": "tests/src"
+    }
+  },
+  "require": {
+    "php": "^7.2",
+    "ext-json": "*",
+    "bytic/omnipay-common": "^3.0"
+  },
+  "require-dev": {
+    "bytic/phpqatools": "^1.0",
+    "mockery/mockery": "^1.0",
+    "vlucas/phpdotenv": "^4.0",
+    "php-http/mock-client": "^1.1"
+  }
+}
