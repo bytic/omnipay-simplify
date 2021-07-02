@@ -2,15 +2,15 @@
 
 require __DIR__ . '/init.php';
 
-$gateway = new \ByTIC\Omnipay\Paylike\Gateway();
+$gateway = new \Paytic\Omnipay\Simplify\Gateway();
 $parameters = [
-    'publicKey' => getenv('PAYLIKE_PUBLIC_KEY'),
-    'privateKey' => getenv('PAYLIKE_PRIVATE_KEY'),
-    'orderId' => 99999,
-    'title' => 'My shop title',
+    'apiPassword' => getenv('SIMPLIFY_API_PASSWORD'),
+    'merchant' => getenv('SIMPLIFY_MERCHANT'),
+    'merchant_name' => 'Test Merchant Name',
+    'orderId' => time(),
     'description' => 'My test transaction',
-    'returnUrl' => 'card-return.php?id=99999',
-    'amount' => 123.34,
+    'returnUrl' => 'http://localhost/libraries/paytic/omnipay-simplify/examples/card-return.php?id=99999',
+    'amount' => 12.34,
     'currency' => 'ron',
     'card' => [
         'first_name' => 'John',

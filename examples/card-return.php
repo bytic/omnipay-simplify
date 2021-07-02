@@ -2,10 +2,10 @@
 
 require __DIR__ . '/init.php';
 
-$gateway = new \ByTIC\Omnipay\Paylike\Gateway();
+$gateway = new \Paytic\Omnipay\Simplify\Gateway();
 $parameters = [
-    'publicKey' => getenv('PAYLIKE_PUBLIC_KEY'),
-    'privateKey' => getenv('PAYLIKE_PRIVATE_KEY'),
+    'apiPassword' => getenv('SIMPLIFY_API_PASSWORD'),
+    'merchant' => getenv('SIMPLIFY_MERCHANT'),
 ];
 
 $request = $gateway->completePurchase($parameters);

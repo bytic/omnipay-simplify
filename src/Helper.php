@@ -1,16 +1,16 @@
 <?php
 
-namespace ByTIC\Omnipay\Paylike;
+namespace Paytic\Omnipay\Simplify;
 
 /**
  * Class Helper
- * @package ByTIC\Omnipay\Paylike
+ * @package Paytic\Omnipay\Simplify
  */
 class Helper
 {
     public static function viewsPath()
     {
-        return __DIR__ . '/resources/views/';
+        return dirname(__DIR__).'/resources/views/';
     }
 
     /**

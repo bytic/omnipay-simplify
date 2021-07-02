@@ -1,5 +1,5 @@
 {
-  "name": "bytic/omnipay-simplify",
+  "name": "paytic/omnipay-simplify",
   "type": "library",
   "license": "MIT",
   "description": "Mastercard Simplify driver for the Omnipay PHP library\n\n",
@@ -13,7 +13,7 @@
     "pay",
     "payment"
   ],
-  "homepage": "https://github.com/bytic/omnipay-simplify",
+  "homepage": "https://github.com/paytic/omnipay-simplify",
   "authors": [
     {
       "name": "Gabriel Solomon",
@@ -22,7 +22,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "ByTIC\\Omnipay\\Simplify\\": "src/"
+      "Paytic\\Omnipay\\Simplify\\": "src/"
     },
     "classmap": [
       "lib"
@@ -30,12 +30,11 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "ByTIC\\Omnipay\\Simplify\\Tests\\Fixtures\\": "tests/fixtures",
-      "ByTIC\\Omnipay\\Simplify\\Tests\\": "tests/src"
+      "Paytic\\Omnipay\\Simplify\\Tests\\Fixtures\\": "tests/fixtures",
+      "Paytic\\Omnipay\\Simplify\\Tests\\": "tests/src"
     }
   },
   "require": {
-    "php": "^7.2",
     "ext-json": "*",
     "bytic/omnipay-common": "^3.0"
   },
@@ -43,6 +42,7 @@
     "bytic/phpqatools": "^1.0",
     "mockery/mockery": "^1.0",
     "vlucas/phpdotenv": "^4.0",
-    "php-http/mock-client": "^1.1"
+    "php-http/mock-client": "^1.1",
+    "php-http/guzzle7-adapter": "^1.0"
   }
 }

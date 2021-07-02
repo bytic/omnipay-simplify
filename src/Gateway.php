@@ -1,19 +1,21 @@
 <?php
 
-namespace ByTIC\Omnipay\Paylike;
+namespace Paytic\Omnipay\Simplify;
 
-use ByTIC\Omnipay\Paylike\Message\CaptureRequest;
-use ByTIC\Omnipay\Paylike\Message\CompletePurchaseRequest;
-use ByTIC\Omnipay\Paylike\Message\PurchaseRequest;
-//use ByTIC\Omnipay\Paylike\Message\ServerCompletePurchaseRequest;
-use ByTIC\Omnipay\Paylike\Traits\HasKeysTrait;
+use Paytic\Omnipay\Simplify\Message\CaptureRequest;
+use Paytic\Omnipay\Simplify\Message\CompletePurchaseRequest;
+use Paytic\Omnipay\Simplify\Message\CreateCheckoutSessionRequest;
+use Paytic\Omnipay\Simplify\Message\PurchaseRequest;
+//use Paytic\Omnipay\Paylike\Message\ServerCompletePurchaseRequest;
+use Paytic\Omnipay\Simplify\Traits\HasApiParamsTrait;
+use Paytic\Omnipay\Simplify\Traits\HasAuthParamsTrait;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\Common\Message\RequestInterface;
 
 /**
  * Class Gateway
- * @package ByTIC\Omnipay\Paylike
+ * @package Paytic\Omnipay\Simplify
  *
  * @method RequestInterface authorize(array $options = [])
  * @method RequestInterface completeAuthorize(array $options = [])
@@ -27,15 +29,12 @@ use Omnipay\Common\Message\RequestInterface;
  */
 class Gateway extends AbstractGateway
 {
-    use HasKeysTrait;
+    use HasApiParamsTrait;
+    use HasAuthParamsTrait;
 
     public const VERSION = '1.0';
 
-    /**
-     * @var string
-     */
-    private $prodApiHost = 'https://api.Paylike.com';
-
+    public const DEFAULT_API_VERSION = '60';
 
     /**
      * @inheritdoc
@@ -59,6 +58,20 @@ class Gateway extends AbstractGateway
         );
     }
 
+    /**
+     * @inheritdoc
+     * @return CreateCheckoutSessionRequest
+     */
+    public function createCheckoutSession(array $parameters = []): RequestInterface
+    {
+        return $this->createRequest(
+            CreateCheckoutSessionRequest::class,
+            array_merge($this->getDefaultParameters(), $parameters)
+        );
+    }
+
+    // ------------ PARAMETERS ------------ //
+    
     /** @noinspection PhpMissingParentCallCommonInspection
      *
      * {@inheritdoc}
@@ -67,38 +80,14 @@ class Gateway extends AbstractGateway
     {
         return [
             'testMode' => true, // Must be the 1st in the list!
-            'publicKey' => $this->getPublicKey(),
-            'privateKey' => $this->getPrivateKey(),
-            'apiUrl' => $this->getApiUrl()
+            'apiPassword' => $this->getApiPassword(),
+            'merchant' => $this->getMerchant(),
+            'apiHost' => 'https://egenius.unicredit.ro',
+            'apiVersion' => self::DEFAULT_API_VERSION,
         ];
     }
 
-    // ------------ PARAMETERS ------------ //
-
-    /**
-     * @param  boolean $value
-     * @return $this|AbstractGateway
-     */
-    public function setTestMode($value)
-    {
-        $this->parameters->remove('apiUrl');
-        $this->parameters->remove('secureUrl');
-        return parent::setTestMode($value);
-    }
-
     // ------------ Getter'n'Setters ------------ //
-
-    /**
-     * Get live- or testURL.
-     */
-    public function getApiUrl()
-    {
-        $defaultUrl = $this->getTestMode() === false
-            ? $this->prodApiHost
-            : $this->prodApiHost;
-        return $this->parameters->get('apiUrl', $defaultUrl);
-    }
-
     /**
      * @inheritdoc
      * @return CompletePurchaseRequest
@@ -133,13 +122,4 @@ class Gateway extends AbstractGateway
 //            array_merge($this->getDefaultParameters(), $parameters)
 //        );
 //    }
-
-    /**
-     * @param $value
-     * @return $this
-     */
-    public function setApiUrl($value)
-    {
-        return $this->setParameter('apiUrl', $value);
-    }
 }

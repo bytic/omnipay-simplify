@@ -33,13 +33,13 @@ class Simplify_PaymentsApi
     /**
      * @ignore
      */
-    public static $methodMap = array(
+    public static $methodMap = [
         'create' => 'POST',
         'delete' => 'DELETE',
         'list' => 'GET',
         'show' => 'GET',
         'update' => 'PUT'
-    );
+    ];
 
     /**
      * @ignore

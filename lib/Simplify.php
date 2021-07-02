@@ -28,6 +28,9 @@
 
 require_once(dirname(__FILE__) . '/Simplify/Constants.php');
 
+/**
+ * Class Simplify
+ */
 class Simplify
 {
     /**
