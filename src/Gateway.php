@@ -102,18 +102,6 @@ class Gateway extends AbstractGateway
 
     /**
      * @inheritdoc
-     * @return CaptureRequest
-     */
-    public function capture(array $parameters = []): RequestInterface
-    {
-        return $this->createRequest(
-            CaptureRequest::class,
-            array_merge($this->getDefaultParameters(), $parameters)
-        );
-    }
-
-    /**
-     * @inheritdoc
      */
 //    public function serverCompletePurchase(array $parameters = []): RequestInterface
 //    {

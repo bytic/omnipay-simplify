@@ -10,6 +10,9 @@ namespace Paytic\Omnipay\Simplify\Message;
  */
 class CreateCheckoutSessionResponse extends AbstractResponse
 {
+    public const SESSION_VERSION = 'session_version';
+    public const SUCCESS_INDICATOR = 'successIndicator';
+
     /**
      * @return bool
      */
@@ -23,12 +26,20 @@ class CreateCheckoutSessionResponse extends AbstractResponse
         return print_r($this->getData(), true);
     }
 
-
     /**
      * @return mixed|null
      */
     public function getSessionId()
     {
         return $this->getDataProperty('session_id');
+    }
+
+
+    /**
+     * @return mixed|null
+     */
+    public function getSuccessIndicator()
+    {
+        return $this->getDataProperty('successIndicator');
     }
 }

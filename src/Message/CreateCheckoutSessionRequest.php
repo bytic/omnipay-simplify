@@ -3,6 +3,8 @@
 namespace Paytic\Omnipay\Simplify\Message;
 
 use Http\Client\Common\HttpMethodsClient;
+use Paytic\Omnipay\Simplify\Traits\HasOrderId;
+use Paytic\Omnipay\Simplify\Utility\SessionData;
 
 /**
  * Class PurchaseRequest
@@ -12,6 +14,7 @@ use Http\Client\Common\HttpMethodsClient;
  */
 class CreateCheckoutSessionRequest extends AbstractRequest
 {
+    use HasOrderId;
 
     /**
      * @return array
@@ -33,9 +36,12 @@ class CreateCheckoutSessionRequest extends AbstractRequest
             'merchant' => $this->getMerchant(),
             'order.id' => $this->getOrderId(),
             'order.amount' => $this->getAmount(),
+            'order.notificationUrl' => $this->getNotifyUrl(),
             'order.currency' => $this->getCurrency(),
             'interaction.operation' => 'PURCHASE',
             'interaction.returnUrl' => $this->getReturnUrl(),
+            'interaction.cancelUrl' => $this->getReturnUrl(),
+            'interaction.timeoutUrl' => $this->getReturnUrl(),
         ];
 
         /** @var \Psr\Http\Message\ResponseInterface $response */
@@ -50,23 +56,8 @@ class CreateCheckoutSessionRequest extends AbstractRequest
 
         $data_raw = $response->getBody(true);
         parse_str($data_raw, $data);
+
+        SessionData::set($this->getOrderId(), $data);
         return $data;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOrderId()
-    {
-        return $this->getParameter('orderId');
-    }
-
-    /**
-     * @param $value
-     * @return \Omnipay\Common\Message\AbstractRequest
-     */
-    public function setOrderId($value)
-    {
-        return $this->setParameter('orderId', $value);
     }
 }

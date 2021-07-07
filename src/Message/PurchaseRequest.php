@@ -3,6 +3,9 @@
 namespace Paytic\Omnipay\Simplify\Message;
 
 
+use Omnipay\Common\Exception\InvalidRequestException;
+use Paytic\Omnipay\Simplify\Traits\HasOrderId;
+
 /**
  * Class PurchaseRequest
  * @package Paytic\Omnipay\Simplify\Message
@@ -11,6 +14,8 @@ namespace Paytic\Omnipay\Simplify\Message;
  */
 class PurchaseRequest extends AbstractRequest
 {
+    use HasOrderId;
+
     /**
      * @return array
      * @throws \Omnipay\Common\Exception\InvalidRequestException
@@ -28,6 +33,11 @@ class PurchaseRequest extends AbstractRequest
             'returnUrl',
             'card'
         );
+
+        $phone = $this->getCard()->getBillingPhone();
+        if (empty($phone)) {
+            throw new InvalidRequestException("The phone card parameter is required");
+        }
 
         $data = [
             'session_id' => $this->createSessionId(),
@@ -48,7 +58,7 @@ class PurchaseRequest extends AbstractRequest
         $data['street2'] = $card->getBillingAddress2();
         $data['city'] = $card->getBillingCity();
         $data['country'] = $card->getBillingCountry();
-        $data['phone'] = $card->getBillingPhone();
+        $data['phone'] = $phone;
         $data['email'] = $card->getEmail();
 
         return $data;
@@ -69,23 +79,6 @@ class PurchaseRequest extends AbstractRequest
     public function setMerchantName($value)
     {
         return $this->setParameter('merchant_name', $value);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOrderId()
-    {
-        return $this->getParameter('orderId');
-    }
-
-    /**
-     * @param $value
-     * @return \Omnipay\Common\Message\AbstractRequest
-     */
-    public function setOrderId($value)
-    {
-        return $this->setParameter('orderId', $value);
     }
 
     /**
