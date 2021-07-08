@@ -3,11 +3,12 @@
 namespace Paytic\Omnipay\Simplify\Message;
 
 use Paytic\Omnipay\Simplify\Traits\HasOrderId;
-use Paytic\Omnipay\Simplify\Utility\SessionData;
 
 /**
  * Class RetrieveOrderRequest
  * @package Paytic\Omnipay\Simplify\Message
+ *
+ * @method RetrieveOrderResponse send()
  */
 class RetrieveOrderRequest extends AbstractRequest
 {

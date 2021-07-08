@@ -22,7 +22,7 @@ class RetrieveOrderResponseTest extends AbstractResponseTest
         self::assertFalse($response->isRedirect());
         self::assertFalse($response->isCancelled());
         self::assertTrue($response->isSuccessful());
-        
+
         self::assertSame('1625688049', $response->getTransactionId());
     }
 }

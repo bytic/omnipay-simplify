@@ -38,13 +38,14 @@ class CompletePurchaseRequest extends AbstractRequest
         );
 
         if ($this->isValidTransaction()) {
-            return false;
+            return [];
         }
-        $this->data['success'] = true;
 
-        $transaction = $this->httpRequest->query->all();
-
-        return $transaction;
+        $response = $this->makeRetrieveOrderRequest();
+        if ($response->isSuccessful()) {
+            return $response->getData();
+        }
+        return false;
     }
 
     /**
@@ -52,7 +53,7 @@ class CompletePurchaseRequest extends AbstractRequest
      */
     protected function isValidTransaction()
     {
-        $success_indicator = SessionData::value($this->getOrderId(),CreateCheckoutSessionResponse::SUCCESS_INDICATOR);
+        $success_indicator = SessionData::value($this->getOrderId(), CreateCheckoutSessionResponse::SUCCESS_INDICATOR);
         $result_indicator = $this->httpRequest->query->get('resultIndicator');
 
         $is_valid = $success_indicator == $result_indicator;
@@ -61,5 +62,24 @@ class CompletePurchaseRequest extends AbstractRequest
         }
 
         return $is_valid;
+    }
+
+    /**
+     * @param array $params
+     * @return RetrieveOrderResponse
+     */
+    protected function makeRetrieveOrderRequest(array $params = [])
+    {
+        $request = new RetrieveOrderRequest($this->httpClient, $this->httpRequest);
+
+        $parameters = [
+            'apiPassword' => $this->getApiPassword(),
+            'merchant' => $this->getApiPassword(),
+            'orderId' => $this->getOrderId()
+        ];
+
+        $request->initialize(array_replace($parameters, $params));
+
+        return $request->send();
     }
 }
