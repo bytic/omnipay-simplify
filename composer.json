@@ -29,10 +29,7 @@
   "autoload": {
     "psr-4": {
       "Paytic\\Omnipay\\Simplify\\": "src/"
-    },
-    "classmap": [
-      "lib"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {

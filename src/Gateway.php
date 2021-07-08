@@ -42,7 +42,7 @@ class Gateway extends AbstractGateway
      */
     public function getName()
     {
-        return 'Paylike';
+        return 'Simplify';
     }
 
     // ------------ PARAMETERS ------------ //
