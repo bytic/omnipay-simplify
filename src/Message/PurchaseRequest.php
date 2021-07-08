@@ -2,6 +2,7 @@
 
 namespace Paytic\Omnipay\Simplify\Message;
 
+use Nip\Utility\Country;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Paytic\Omnipay\Simplify\Traits\HasOrderId;
 
@@ -53,12 +54,18 @@ class PurchaseRequest extends AbstractRequest
 
         $data['firstName'] = $card->getBillingFirstName();
         $data['lastName'] = $card->getBillingLastName();
+        $data['phone'] = $phone;
+        $data['email'] = $card->getEmail();
+
         $data['street1'] = $card->getBillingAddress1();
         $data['street2'] = $card->getBillingAddress2();
         $data['city'] = $card->getBillingCity();
-        $data['country'] = $card->getBillingCountry();
-        $data['phone'] = $phone;
-        $data['email'] = $card->getEmail();
+
+        $country = $card->getBillingCountry();
+        if (!empty($country)) {
+            $country = Country::fromName($country);
+            $data['country'] = $country->alpha3;
+        }
 
         return $data;
     }

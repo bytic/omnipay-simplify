@@ -57,6 +57,7 @@ class Gateway extends AbstractGateway
             'testMode' => true, // Must be the 1st in the list!
             'apiPassword' => $this->getApiPassword(),
             'merchant' => $this->getMerchant(),
+            'merchant_name' => $this->getMerchantName(),
             'apiHost' => 'https://egenius.unicredit.ro',
             'apiVersion' => self::DEFAULT_API_VERSION,
         ];

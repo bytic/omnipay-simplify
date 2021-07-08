@@ -39,7 +39,8 @@
   },
   "require": {
     "ext-json": "*",
-    "bytic/omnipay-common": "^3.0"
+    "bytic/omnipay-common": "^3.0",
+    "bytic/utility": "^1.0"
   },
   "require-dev": {
     "omnipay/tests": "dev-master",

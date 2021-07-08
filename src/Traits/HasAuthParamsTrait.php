@@ -43,4 +43,21 @@ trait HasAuthParamsTrait
     {
         return $this->setParameter('merchant', $value);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMerchantName()
+    {
+        return $this->getParameter('merchant_name');
+    }
+
+    /**
+     * @param $value
+     * @return CommonAbstractRequest
+     */
+    public function setMerchantName($value)
+    {
+        return $this->setParameter('merchant_name', $value);
+    }
 }
