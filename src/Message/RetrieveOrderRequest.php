@@ -47,7 +47,7 @@ class RetrieveOrderRequest extends AbstractRequest
         $data_raw = $response->getBody(true);
         parse_str($data_raw, $data);
 
-        return $data;
+        return is_array($data) && count($data) ? $data : ['error' => true];
     }
 
 }

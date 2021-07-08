@@ -224,7 +224,7 @@
         }
     </script>
 </head>
-<body>
+<body onload="pay()">
 <div class="header">
     <h1>
         Redirecting to Payment Platform
@@ -248,7 +248,9 @@
             <p>
                 If you are not redirected in 5 seconds click the button below.
             </p>
-            <button type="button" value="Go now" class="btn btn-success btn-lg" onclick="pay()"/>
+            <button type="button" value="Go now" class="btn btn-success btn-lg" onclick="pay()">
+                Click Here
+            </button>
         </div>
     </div>
 </div>

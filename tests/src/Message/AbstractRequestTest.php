@@ -66,4 +66,29 @@ abstract class AbstractRequestTest extends AbstractTest
 
         return $this->mockClient;
     }
+
+    /**
+     * @param $path
+     * @return HttpRequest
+     */
+    protected function generateRequestFromFixtures($path)
+    {
+        $httpRequest = HttpRequest::createFromGlobals();
+        $parameters = require $path;
+
+        if (isset($parameters['GET'])) {
+            $httpRequest->query->replace($parameters['GET']);
+        }
+        if (isset($parameters['query'])) {
+            $httpRequest->query->replace($parameters['query']);
+        }
+        if (isset($parameters['POST'])) {
+            $httpRequest->request->replace($parameters['POST']);
+        }
+        if (isset($parameters['request'])) {
+            $httpRequest->request->replace($parameters['request']);
+        }
+
+        return $httpRequest;
+    }
 }

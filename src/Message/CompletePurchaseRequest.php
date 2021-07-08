@@ -73,8 +73,10 @@ class CompletePurchaseRequest extends AbstractRequest
         $request = new RetrieveOrderRequest($this->httpClient, $this->httpRequest);
 
         $parameters = [
+            'apiHost' => $this->getApiHost(),
+            'apiVersion' => $this->getApiVersion(),
             'apiPassword' => $this->getApiPassword(),
-            'merchant' => $this->getApiPassword(),
+            'merchant' => $this->getMerchant(),
             'orderId' => $this->getOrderId()
         ];
 
