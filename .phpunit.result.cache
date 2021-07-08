@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"Paytic\\Omnipay\\Simplify\\Tests\\GatewayTest::testPurchaseRequestEndpointUrl":0.031,"Paytic\\Omnipay\\Simplify\\Tests\\Message\\RetrieveOrderResponseTest::test_basic":0.004}}

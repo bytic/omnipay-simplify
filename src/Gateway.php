@@ -7,6 +7,7 @@ use Paytic\Omnipay\Simplify\Message\CompletePurchaseRequest;
 use Paytic\Omnipay\Simplify\Message\CreateCheckoutSessionRequest;
 use Paytic\Omnipay\Simplify\Message\PurchaseRequest;
 //use Paytic\Omnipay\Paylike\Message\ServerCompletePurchaseRequest;
+use Paytic\Omnipay\Simplify\Message\RetrieveOrderRequest;
 use Paytic\Omnipay\Simplify\Traits\HasApiParamsTrait;
 use Paytic\Omnipay\Simplify\Traits\HasAuthParamsTrait;
 use Omnipay\Common\AbstractGateway;
@@ -44,6 +45,23 @@ class Gateway extends AbstractGateway
         return 'Paylike';
     }
 
+    // ------------ PARAMETERS ------------ //
+    
+    /** @noinspection PhpMissingParentCallCommonInspection
+     *
+     * {@inheritdoc}
+     */
+    public function getDefaultParameters()
+    {
+        return [
+            'testMode' => true, // Must be the 1st in the list!
+            'apiPassword' => $this->getApiPassword(),
+            'merchant' => $this->getMerchant(),
+            'apiHost' => 'https://egenius.unicredit.ro',
+            'apiVersion' => self::DEFAULT_API_VERSION,
+        ];
+    }
+
     // ------------ REQUESTS ------------ //
 
     /**
@@ -70,24 +88,6 @@ class Gateway extends AbstractGateway
         );
     }
 
-    // ------------ PARAMETERS ------------ //
-    
-    /** @noinspection PhpMissingParentCallCommonInspection
-     *
-     * {@inheritdoc}
-     */
-    public function getDefaultParameters()
-    {
-        return [
-            'testMode' => true, // Must be the 1st in the list!
-            'apiPassword' => $this->getApiPassword(),
-            'merchant' => $this->getMerchant(),
-            'apiHost' => 'https://egenius.unicredit.ro',
-            'apiVersion' => self::DEFAULT_API_VERSION,
-        ];
-    }
-
-    // ------------ Getter'n'Setters ------------ //
     /**
      * @inheritdoc
      * @return CompletePurchaseRequest
@@ -96,6 +96,18 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest(
             CompletePurchaseRequest::class,
+            array_merge($this->getDefaultParameters(), $parameters)
+        );
+    }
+
+    /**
+     * @inheritdoc
+     * @return RetrieveOrderRequest
+     */
+    public function retrieveOrder(array $parameters = []): RequestInterface
+    {
+        return $this->createRequest(
+            RetrieveOrderRequest::class,
             array_merge($this->getDefaultParameters(), $parameters)
         );
     }

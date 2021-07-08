@@ -2,7 +2,6 @@
 
 namespace Paytic\Omnipay\Simplify\Message;
 
-
 use Omnipay\Common\Exception\InvalidRequestException;
 use Paytic\Omnipay\Simplify\Traits\HasOrderId;
 

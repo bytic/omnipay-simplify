@@ -1,0 +1,47 @@
+<?php
+
+return [
+    "3dsAcsEci" => "02",
+    "amount" => "12.34",
+    "authentication_3ds_acsEci" => "02",
+    "authentication_3ds_authenticationToken" => "kHyn+7YFi1EUAREAAAAvNUe6Hv8=",
+    "authentication_3ds_transactionId" => "91e9dc92-dd0c-4071-8cba-edae518cb48e",
+    "authenticationStatus" => "AUTHENTICATION_SUCCESSFUL",
+    "authenticationVersion" => "3DS2",
+    "chargeback_amount" => "0",
+    "chargeback_currency" => "RON",
+    "creationTime" => "2021-07-07T20:01:04.411Z",
+    "currency" => "RON",
+    "customer_email" => "john.doe@gmail.com",
+    "customer_firstName" => "asdasdasd",
+    "customer_mobilePhone" => "0741040219",
+    "description" => "My test transaction",
+    "device_browser" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "device_ipAddress" => "86.107.100.41",
+    "id" => "1625688049",
+    "lastUpdatedTime" => "2021-07-07T20:01:18.979Z",
+    "merchant" => "TEST2930X002",
+    "merchantAmount" => "12.34",
+    "merchantCategoryCode" => "8911",
+    "merchantCurrency" => "RON",
+    "notificationUrl" => "https://hookb.in/MqqdzrREWnFDRWppRLRw",
+    "result" => "SUCCESS",
+    "sourceOfFunds_provided_card_brand" => "MASTERCARD",
+    "sourceOfFunds_provided_card_expiry_month" => "5",
+    "sourceOfFunds_provided_card_expiry_year" => "21",
+    "sourceOfFunds_provided_card_fundingMethod" => "CREDIT",
+    "sourceOfFunds_provided_card_nameOnCard" => "asdasdasd",
+    "sourceOfFunds_provided_card_number" => "512345xxxxxx0008",
+    "sourceOfFunds_provided_card_scheme" => "MASTERCARD",
+    "sourceOfFunds_provided_card_storedOnFile" => "NOT_STORED",
+    "sourceOfFunds_type" => "CARD",
+    "status" => "CAPTURED",
+    "totalAuthorizedAmount" => "12.34",
+    "totalCapturedAmount" => "12.34",
+    "totalRefundedAmount" => "0.00",
+    "transaction" =>
+        [
+            0 => "60",
+            1 => "60"
+        ]
+];
