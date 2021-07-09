@@ -43,6 +43,7 @@ class CompletePurchaseRequest extends AbstractRequest
 
         $response = $this->makeRetrieveOrderRequest();
         if ($response->isSuccessful()) {
+            $this->setDataItem('success', true);
             return $response->getData();
         }
         return false;
