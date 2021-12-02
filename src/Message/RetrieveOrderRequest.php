@@ -29,7 +29,7 @@ class RetrieveOrderRequest extends AbstractRequest
         $data = [
             'apiOperation' => 'RETRIEVE_ORDER',
             'apiPassword' => $this->getApiPassword(),
-            'apiUsername' => 'merchant.'.$this->getMerchant(),
+            'apiUsername' => 'merchant.' . $this->getMerchant(),
             'merchant' => $this->getMerchant(),
             'order.id' => $this->getOrderId(),
         ];
@@ -49,5 +49,4 @@ class RetrieveOrderRequest extends AbstractRequest
 
         return is_array($data) && count($data) ? $data : ['error' => true];
     }
-
 }

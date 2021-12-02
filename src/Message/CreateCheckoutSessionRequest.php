@@ -32,7 +32,7 @@ class CreateCheckoutSessionRequest extends AbstractRequest
         $data = [
             'apiOperation' => 'CREATE_CHECKOUT_SESSION',
             'apiPassword' => $this->getApiPassword(),
-            'apiUsername' => 'merchant.'.$this->getMerchant(),
+            'apiUsername' => 'merchant.' . $this->getMerchant(),
             'merchant' => $this->getMerchant(),
             'order.id' => $this->getOrderId(),
             'order.amount' => $this->getAmount(),

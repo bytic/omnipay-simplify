@@ -11,7 +11,6 @@ use Paytic\Omnipay\Simplify\Message\PurchaseRequest;
  */
 class GatewayTest extends AbstractTest
 {
-
     public function testPurchaseRequestEndpointUrl()
     {
         $gateway = new Gateway();

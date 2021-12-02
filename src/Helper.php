@@ -10,7 +10,7 @@ class Helper
 {
     public static function viewsPath()
     {
-        return dirname(__DIR__).'/resources/views/';
+        return dirname(__DIR__) . '/resources/views/';
     }
 
     /**
