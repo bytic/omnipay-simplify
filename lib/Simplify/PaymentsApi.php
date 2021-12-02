@@ -2,34 +2,33 @@
 /*
  * Copyright (c) 2013 - 2021 MasterCard International Incorporated
  * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without modification, are 
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
- * 
- * Redistributions of source code must retain the above copyright notice, this list of 
+ *
+ * Redistributions of source code must retain the above copyright notice, this list of
  * conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of 
- * conditions and the following disclaimer in the documentation and/or other materials 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of
+ * conditions and the following disclaimer in the documentation and/or other materials
  * provided with the distribution.
- * Neither the name of the MasterCard International Incorporated nor the names of its 
- * contributors may be used to endorse or promote products derived from this software 
+ * Neither the name of the MasterCard International Incorporated nor the names of its
+ * contributors may be used to endorse or promote products derived from this software
  * without specific prior written permission.
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT 
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
- * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER 
- * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING 
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF 
+ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+ * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
 
 
 class Simplify_PaymentsApi
 {
-
     /**
      * @ignore
      */
@@ -44,7 +43,7 @@ class Simplify_PaymentsApi
     /**
      * @ignore
      */
-    static public function createObject($object, $authentication = null)
+    public static function createObject($object, $authentication = null)
     {
         $paymentsApi = new Simplify_PaymentsApi();
 
@@ -58,7 +57,7 @@ class Simplify_PaymentsApi
     /**
      * @ignore
      */
-    static public function findObject($object, $authentication = null)
+    public static function findObject($object, $authentication = null)
     {
         $paymentsApi = new Simplify_PaymentsApi();
 
@@ -71,7 +70,8 @@ class Simplify_PaymentsApi
     /**
      * @ignore
      */
-    static public function updateObject($object, $authentication = null) {
+    public static function updateObject($object, $authentication = null)
+    {
         $paymentsApi = new Simplify_PaymentsApi();
 
         $jsonObject = $paymentsApi->execute("update", $object, $authentication);
@@ -83,7 +83,8 @@ class Simplify_PaymentsApi
     /**
      * @ignore
      */
-    static public function deleteObject($object, $authentication = null) {
+    public static function deleteObject($object, $authentication = null)
+    {
         $paymentsApi = new Simplify_PaymentsApi();
 
         $jsonObject = $paymentsApi->execute("delete", $object, $authentication);
@@ -94,7 +95,8 @@ class Simplify_PaymentsApi
     /**
      * @ignore
      */
-    static public function listObject($object, $criteria = null, $authentication =null) {
+    public static function listObject($object, $criteria = null, $authentication =null)
+    {
         if ($criteria != null) {
             if (isset($criteria['max'])) {
                 $object->max = $criteria['max'];
@@ -170,7 +172,7 @@ class Simplify_PaymentsApi
             $queryParams = array_merge($queryParams, array('max' => $object->max, 'offset' => $object->offset));
             if (is_array($object->filter) && count(array_keys($object->filter))) {
                 foreach ($object->filter as $key => $value) {
-		    $queryParams["filter[$key]"] = $value;
+                    $queryParams["filter[$key]"] = $value;
                 }
             }
             if (is_array($object->sorting) && count(array_keys($object->sorting))) {
@@ -180,10 +182,11 @@ class Simplify_PaymentsApi
             }
             $query = http_build_query($queryParams);
             if ($query != '') {
-                if (strpos($url, '?', strlen($url)) === false) $url .= '?';
+                if (strpos($url, '?', strlen($url)) === false) {
+                    $url .= '?';
+                }
                 $url .= $query;
             }
-
         } elseif ($action == "delete") {
             $url .= urlencode($object->id);
         } elseif ($action == "update") {
@@ -211,8 +214,12 @@ class Simplify_PaymentsApi
     {
         $http = new Simplify_HTTP();
 
-        return $http->apiRequest($this->getUrl($authentication->publicKey, $action, $object), $this->getMethod($action),
-            $authentication, json_encode($object->getProperties()));
+        return $http->apiRequest(
+            $this->getUrl($authentication->publicKey, $action, $object),
+            $this->getMethod($action),
+            $authentication,
+            json_encode($object->getProperties())
+        );
     }
 
     /**
@@ -241,7 +248,8 @@ class Simplify_PaymentsApi
     /**
      * @ignore
      */
-    private function isLiveKey($k) {
+    private function isLiveKey($k)
+    {
         return strpos($k, "lvpb") === 0;
     }
 
@@ -265,26 +273,24 @@ class Simplify_PaymentsApi
      * @param $expectedArgCount
      * @return Simplify_Authentication
      */
-    static function buildAuthenticationObject($authentication = null, $args, $expectedArgCount){
-
-        if(sizeof($args) > $expectedArgCount) {
+    public static function buildAuthenticationObject($authentication = null, $args, $expectedArgCount)
+    {
+        if (sizeof($args) > $expectedArgCount) {
             $authentication = new Simplify_Authentication($args[$expectedArgCount-1], $args[$expectedArgCount]);
         }
 
-        if ($authentication == null){
+        if ($authentication == null) {
             $authentication = new Simplify_Authentication();
         }
 
         // check that the keys have been set, if not use the global keys
-        if ( empty($authentication->publicKey)){
+        if (empty($authentication->publicKey)) {
             $authentication->publicKey = Simplify::$publicKey;
         }
-        if ( empty($authentication->privateKey)){
+        if (empty($authentication->privateKey)) {
             $authentication->privateKey = Simplify::$privateKey;
         }
 
         return $authentication;
     }
-
 }
-

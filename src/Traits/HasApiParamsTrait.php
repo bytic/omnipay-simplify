@@ -8,14 +8,13 @@ namespace Paytic\Omnipay\Simplify\Traits;
  */
 trait HasApiParamsTrait
 {
-
     protected function getApiUrl($type = '', $path = '')
     {
         return $this->getApiHost()
-            .'/'.$type
-            .'/version/'
-            .$this->getApiVersion()
-            .''.$path;
+            . '/' . $type
+            . '/version/'
+            . $this->getApiVersion()
+            . '' . $path;
     }
 
     /**

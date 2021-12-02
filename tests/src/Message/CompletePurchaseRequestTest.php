@@ -43,5 +43,4 @@ class CompletePurchaseRequestTest extends AbstractRequestTest
         $request = $this->getMockClient()->getLastRequest();
         self::assertSame('https://egenius.unicredit.ro/api/nvp/version/60', $request->getUri()->__toString());
     }
-
 }

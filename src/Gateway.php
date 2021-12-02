@@ -46,7 +46,7 @@ class Gateway extends AbstractGateway
     }
 
     // ------------ PARAMETERS ------------ //
-    
+
     /** @noinspection PhpMissingParentCallCommonInspection
      *
      * {@inheritdoc}

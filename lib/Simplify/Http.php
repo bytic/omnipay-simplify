@@ -2,57 +2,57 @@
 /*
  * Copyright (c) 2013 - 2021 MasterCard International Incorporated
  * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without modification, are 
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
- * 
- * Redistributions of source code must retain the above copyright notice, this list of 
+ *
+ * Redistributions of source code must retain the above copyright notice, this list of
  * conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of 
- * conditions and the following disclaimer in the documentation and/or other materials 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of
+ * conditions and the following disclaimer in the documentation and/or other materials
  * provided with the distribution.
- * Neither the name of the MasterCard International Incorporated nor the names of its 
- * contributors may be used to endorse or promote products derived from this software 
+ * Neither the name of the MasterCard International Incorporated nor the names of its
+ * contributors may be used to endorse or promote products derived from this software
  * without specific prior written permission.
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT 
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
- * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER 
- * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING 
- * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF 
+ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+ * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
 
 
 class Simplify_HTTP
 {
-    const DELETE = "DELETE";
-    const GET = "GET";
-    const POST = "POST";
-    const PUT = "PUT";
+    public const DELETE = "DELETE";
+    public const GET = "GET";
+    public const POST = "POST";
+    public const PUT = "PUT";
 
-    const HTTP_SUCCESS = 200;
-    const HTTP_REDIRECTED = 302;
-    const HTTP_UNAUTHORIZED = 401;
-    const HTTP_NOT_FOUND = 404;
-    const HTTP_NOT_ALLOWED = 405;
-    const HTTP_BAD_REQUEST = 400;
+    public const HTTP_SUCCESS = 200;
+    public const HTTP_REDIRECTED = 302;
+    public const HTTP_UNAUTHORIZED = 401;
+    public const HTTP_NOT_FOUND = 404;
+    public const HTTP_NOT_ALLOWED = 405;
+    public const HTTP_BAD_REQUEST = 400;
 
 
-    const JWS_NUM_HEADERS         = 7;
-    const JWS_ALGORITHM           = 'HS256';
-    const JWS_TYPE                = 'JWS';
-    const JWS_HDR_UNAME           = 'uname';
-    const JWS_HDR_URI             = 'api.simplifycommerce.com/uri';
-    const JWS_HDR_TIMESTAMP       = 'api.simplifycommerce.com/timestamp';
-    const JWS_HDR_NONCE           = 'api.simplifycommerce.com/nonce';
-    const JWS_HDR_TOKEN           = 'api.simplifycommerce.com/token';
-    const JWS_MAX_TIMESTAMP_DIFF  = 300; // 5 minutes in seconds
+    public const JWS_NUM_HEADERS         = 7;
+    public const JWS_ALGORITHM           = 'HS256';
+    public const JWS_TYPE                = 'JWS';
+    public const JWS_HDR_UNAME           = 'uname';
+    public const JWS_HDR_URI             = 'api.simplifycommerce.com/uri';
+    public const JWS_HDR_TIMESTAMP       = 'api.simplifycommerce.com/timestamp';
+    public const JWS_HDR_NONCE           = 'api.simplifycommerce.com/nonce';
+    public const JWS_HDR_TOKEN           = 'api.simplifycommerce.com/token';
+    public const JWS_MAX_TIMESTAMP_DIFF  = 300; // 5 minutes in seconds
 
-    static private $_validMethods = array(
+    private static $_validMethods = array(
         "post" => self::POST,
         "put" => self::PUT,
         "get" => self::GET,
@@ -69,7 +69,7 @@ class Simplify_HTTP
         }
 
         if (!array_key_exists(strtolower($method), self::$_validMethods)) {
-            throw new InvalidArgumentException('Invalid method: '.strtolower($method));
+            throw new InvalidArgumentException('Invalid method: ' . strtolower($method));
         }
 
         $method = self::$_validMethods[strtolower($method)];
@@ -116,7 +116,7 @@ class Simplify_HTTP
         }
 
         $object = json_decode($data, true);
-                                     //'typ' => self::JWS_TYPE,
+        //'typ' => self::JWS_TYPE,
         $response = array('status' => $status, 'object' => $object);
 
         return $response;
@@ -137,8 +137,8 @@ class Simplify_HTTP
      * @throws Simplify_NotAllowedException
      * @throws Simplify_SystemException
      */
-    public function apiRequest($url, $method, $authentication, $payload = ''){
-
+    public function apiRequest($url, $method, $authentication, $payload = '')
+    {
         $response = $this->request($url, $method, $authentication, $payload);
 
         $status = $response['status'];
@@ -150,18 +150,18 @@ class Simplify_HTTP
 
         if ($status == self::HTTP_REDIRECTED) {
             throw new Simplify_BadRequestException("Unexpected response code returned from the API, have you got the correct URL?", $status, $object);
-        } else if ($status == self::HTTP_BAD_REQUEST) {
+        } elseif ($status == self::HTTP_BAD_REQUEST) {
             throw new Simplify_BadRequestException("Bad request", $status, $object);
-        } else if ($status == self::HTTP_UNAUTHORIZED) {
+        } elseif ($status == self::HTTP_UNAUTHORIZED) {
             throw new Simplify_AuthenticationException("You are not authorized to make this request.  Are you using the correct API keys?", $status, $object);
-        } else if ($status == self::HTTP_NOT_FOUND) {
+        } elseif ($status == self::HTTP_NOT_FOUND) {
             throw new Simplify_ObjectNotFoundException("Object not found", $status, $object);
-        } else if ($status == self::HTTP_NOT_ALLOWED) {
+        } elseif ($status == self::HTTP_NOT_ALLOWED) {
             throw new Simplify_NotAllowedException("Operation not allowed", $status, $object);
-        } else if ($status < 500) {
+        } elseif ($status < 500) {
             throw new Simplify_BadRequestException("Bad request", $status, $object);
         }
-        throw new Simplify_SystemException("An unexpected error has been raised.  Looks like there's something wrong at our end." , $status, $object);
+        throw new Simplify_SystemException("An unexpected error has been raised.  Looks like there's something wrong at our end.", $status, $object);
     }
 
     /**
@@ -177,8 +177,8 @@ class Simplify_HTTP
      * @throws Simplify_NotAllowedException
      * @throws Simplify_SystemException
      */
-    public function oauthRequest($url, $payload, $authentication){
-
+    public function oauthRequest($url, $payload, $authentication)
+    {
         $response = $this->request($url, Simplify_HTTP::POST, $authentication, $payload);
 
         $status = $response['status'];
@@ -193,36 +193,32 @@ class Simplify_HTTP
 
         if ($status == self::HTTP_REDIRECTED) {
             throw new Simplify_BadRequestException("Unexpected response code returned from the API, have you got the correct URL?", $status, $object);
-        } else if ($status == self::HTTP_BAD_REQUEST) {
-
-            if ( $error == 'invalid_request'){
+        } elseif ($status == self::HTTP_BAD_REQUEST) {
+            if ($error == 'invalid_request') {
                 throw new Simplify_BadRequestException("", $status, $this->buildOauthError('Error during OAuth request', $error, $error_description));
-            }else if (error_code == 'unsupported_grant_type'){
+            } elseif (error_code == 'unsupported_grant_type') {
                 throw new Simplify_BadRequestException("", $status, $this->buildOauthError('Unsupported grant type in OAuth request', $error, $error_description));
-            }else if (error_code == 'invalid_scope'){
+            } elseif (error_code == 'invalid_scope') {
                 throw new Simplify_BadRequestException("", $status, $this->buildOauthError('Invalid scope in OAuth request', $error, $error_description));
-            }else{
+            } else {
                 throw new Simplify_BadRequestException("", $status, $this->buildOauthError('Unknown OAuth error', $error, $error_description));
             }
 
             //TODO:  build BadRequestException error JSON
-
-        } else if ($status == self::HTTP_UNAUTHORIZED){
-
-            if (error_code == 'access_denied'){
+        } elseif ($status == self::HTTP_UNAUTHORIZED) {
+            if (error_code == 'access_denied') {
                 throw new Simplify_AuthenticationException("", $status, $this->buildOauthError('Access denied for OAuth request', $error, $error_description));
-            }else if (error_code == 'invalid_client'){
+            } elseif (error_code == 'invalid_client') {
                 throw new Simplify_AuthenticationException("", $status, $this->buildOauthError('Invalid client ID in OAuth request', $error, $error_description));
-            }else if (error_code == 'unauthorized_client'){
+            } elseif (error_code == 'unauthorized_client') {
                 throw new Simplify_AuthenticationException("", $status, $this->buildOauthError('Unauthorized client in OAuth request', $error, $error_description));
-            }else{
+            } else {
                 throw new Simplify_AuthenticationException("", $status, $this->buildOauthError('Unknown authentication error', $error, $error_description));
             }
-
-        } else if ($status < 500) {
+        } elseif ($status < 500) {
             throw new Simplify_BadRequestException("Bad request", $status, $object);
         }
-        throw new Simplify_SystemException("An unexpected error has been raised.  Looks like there's something wrong at our end." , $status, $object);
+        throw new Simplify_SystemException("An unexpected error has been raised.  Looks like there's something wrong at our end.", $status, $object);
     }
 
     public function jwsDecode($authentication, $hash)
@@ -263,7 +259,6 @@ class Simplify_HTTP
             }
 
             return $bodyStr;
-
         } catch (ApiException $e) {
             throw $e;
         } catch (Exception $e) {
@@ -280,10 +275,10 @@ class Simplify_HTTP
                           self::JWS_HDR_URI => $url,
                           self::JWS_HDR_TIMESTAMP => sprintf("%u000", round(microtime(true))),
                           self::JWS_HDR_NONCE => sprintf("%u", mt_rand()),
-    	);
+        );
 
         // add oauth token if provided
-        if ( !empty($authentication->accessToken) ){
+        if (!empty($authentication->accessToken)) {
             $jws_hdr[self::JWS_HDR_TOKEN] = $authentication->accessToken;
         }
 
@@ -299,91 +294,99 @@ class Simplify_HTTP
         return $msg . "." . $this->jwsSign($authentication->privateKey, $msg);
     }
 
-    private function jwsSign($privateKey, $msg) {
+    private function jwsSign($privateKey, $msg)
+    {
         $decodedPrivateKey = $this->jwsUrlSafeDecode64($privateKey);
         $sig = hash_hmac('sha256', $msg, $decodedPrivateKey, true);
 
         return $this->jwsUrlSafeEncode64($sig);
     }
 
-    private function jwsVerifyHeader($header, $url, $publicKey) {
+    private function jwsVerifyHeader($header, $url, $publicKey)
+    {
+        $hdr = json_decode($header, true);
 
-	    $hdr = json_decode($header, true);
-
-	    if (count($hdr) != self::JWS_NUM_HEADERS) {
-		    $this->jwsAuthError("Incorrect number of JWS header parameters - found " . count($hdr) . " required " . self::JWS_NUM_HEADERS);
+        if (count($hdr) != self::JWS_NUM_HEADERS) {
+            $this->jwsAuthError("Incorrect number of JWS header parameters - found " . count($hdr) . " required " . self::JWS_NUM_HEADERS);
         }
 
-	    if ($hdr['alg'] != self::JWS_ALGORITHM) {
-		    $this->jwsAuthError("Incorrect algorithm - found " . $hdr['alg'] . " required " . self::WS_ALGORITHM);
+        if ($hdr['alg'] != self::JWS_ALGORITHM) {
+            $this->jwsAuthError("Incorrect algorithm - found " . $hdr['alg'] . " required " . self::WS_ALGORITHM);
         }
 
-	    if ($hdr['typ'] != self::JWS_TYPE) {
-		    $this->jwsAuthError("Incorrect type - found " . $hdr['typ'] . " required " . self::JWS_TYPE);
+        if ($hdr['typ'] != self::JWS_TYPE) {
+            $this->jwsAuthError("Incorrect type - found " . $hdr['typ'] . " required " . self::JWS_TYPE);
         }
 
-	    if ($hdr['kid'] == null) {
-		    $this->jwsAuthError("Missing Key ID");
-	    }
+        if ($hdr['kid'] == null) {
+            $this->jwsAuthError("Missing Key ID");
+        }
 
-	    if ($hdr['kid'] != $publicKey) {
-	        if ($this->isLiveKey($publicKey)) {
-	            $this->jwsAuthError("Invalid Key ID");
+        if ($hdr['kid'] != $publicKey) {
+            if ($this->isLiveKey($publicKey)) {
+                $this->jwsAuthError("Invalid Key ID");
             }
         }
 
-	    if ($hdr[self::JWS_HDR_URI] == null) {
-		    $this->jwsAuthError("Missing URI");
+        if ($hdr[self::JWS_HDR_URI] == null) {
+            $this->jwsAuthError("Missing URI");
         }
 
-	    if ($url != null && $hdr[self::JWS_HDR_URI] != $url) {
-	        $this->jwsAuthError("Incorrect URL - found " . $hdr[self::JWS_HDR_URI] . " required " . $url);
+        if ($url != null && $hdr[self::JWS_HDR_URI] != $url) {
+            $this->jwsAuthError("Incorrect URL - found " . $hdr[self::JWS_HDR_URI] . " required " . $url);
         }
 
 
-	    if ($hdr[self::JWS_HDR_TIMESTAMP] == null) {
-		    $this->jwsAuthError("Missing timestamp");
+        if ($hdr[self::JWS_HDR_TIMESTAMP] == null) {
+            $this->jwsAuthError("Missing timestamp");
         }
 
-	    if (!$this->jwsVerifyTimestamp($hdr[self::JWS_HDR_TIMESTAMP])) {
-		    $this->jwsAuthError("Invalid timestamp");
-	    }
-
-	    if ($hdr[self::JWS_HDR_NONCE] == null) {
-		    $this->jwsAuthError("Missing nonce");
+        if (!$this->jwsVerifyTimestamp($hdr[self::JWS_HDR_TIMESTAMP])) {
+            $this->jwsAuthError("Invalid timestamp");
         }
 
-	    if ($hdr[self::JWS_HDR_UNAME] == null) {
-		    $this->jwsAuthError("Missing username");
+        if ($hdr[self::JWS_HDR_NONCE] == null) {
+            $this->jwsAuthError("Missing nonce");
+        }
+
+        if ($hdr[self::JWS_HDR_UNAME] == null) {
+            $this->jwsAuthError("Missing username");
         }
     }
 
 
-    private function jwsVerifySignature($privateKey, $msg, $expectedSig) {
+    private function jwsVerifySignature($privateKey, $msg, $expectedSig)
+    {
         return $this->jwsSign($privateKey, $msg) == $expectedSig;
     }
 
-    private function jwsAuthError($reason) {
+    private function jwsAuthError($reason)
+    {
         throw new Simplify_AuthenticationException("JWS authentication failure: " . $reason);
     }
 
-    private function jwsVerifyTimestamp($ts) {
+    private function jwsVerifyTimestamp($ts)
+    {
         $now = round(microtime(true)); // Seconds
         return abs($now - $ts / 1000) < self::JWS_MAX_TIMESTAMP_DIFF;
     }
 
-    private function isLiveKey($k) {
+    private function isLiveKey($k)
+    {
         return strpos($k, "lvpb") === 0;
     }
 
-    private function jwsUrlSafeEncode64($s) {
-        return str_replace(array('+', '/', '='),
-                           array('-', '_', ''),
-                           base64_encode($s));
+    private function jwsUrlSafeEncode64($s)
+    {
+        return str_replace(
+            array('+', '/', '='),
+            array('-', '_', ''),
+            base64_encode($s)
+        );
     }
 
-    private function jwsUrlSafeDecode64($s) {
-
+    private function jwsUrlSafeDecode64($s)
+    {
         switch (strlen($s) % 4) {
             case 0: break;
             case 2: $s = $s . "==";
@@ -395,12 +398,12 @@ class Simplify_HTTP
         return base64_decode(str_replace(array('-', '_'), array('+', '/'), $s));
     }
 
-    private function buildOauthError($msg, $error, $error_description){
-
+    private function buildOauthError($msg, $error, $error_description)
+    {
         return array(
             'error' => array(
                 'code' => 'oauth_error',
-                'message' => $msg.', error code: '.$error.', description: '.$error_description.''
+                'message' => $msg . ', error code: ' . $error . ', description: ' . $error_description . ''
             )
         );
     }

@@ -8,7 +8,6 @@ namespace Paytic\Omnipay\Simplify\Traits;
  */
 trait HasOrderId
 {
-
     /**
      * @return mixed
      */
@@ -25,5 +24,4 @@ trait HasOrderId
     {
         return $this->setParameter('orderId', $value);
     }
-
 }

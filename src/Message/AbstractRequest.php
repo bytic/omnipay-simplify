@@ -16,5 +16,4 @@ abstract class AbstractRequest extends CommonAbstractRequest
     use SendDataRequestTrait;
     use HasApiParamsTrait;
     use HasAuthParamsTrait;
-
 }
