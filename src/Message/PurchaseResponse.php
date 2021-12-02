@@ -2,7 +2,7 @@
 
 namespace Paytic\Omnipay\Simplify\Message;
 
-use ByTIC\Omnipay\Common\Message\Traits\HasViewTrait;
+use Paytic\Omnipay\Common\Message\Traits\HasViewTrait;
 use Paytic\Omnipay\Simplify\Helper;
 
 /**

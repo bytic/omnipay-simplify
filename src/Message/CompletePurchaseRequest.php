@@ -2,7 +2,7 @@
 
 namespace Paytic\Omnipay\Simplify\Message;
 
-use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationRequestTrait;
+use Paytic\Omnipay\Common\Message\Traits\GatewayNotificationRequestTrait;
 use Paytic\Omnipay\Simplify\Traits\HasOrderId;
 use Paytic\Omnipay\Simplify\Utility\SessionData;
 

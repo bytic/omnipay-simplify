@@ -2,8 +2,8 @@
 
 namespace Paytic\Omnipay\Simplify\Message;
 
-use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
-use ByTIC\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
+use Paytic\Omnipay\Common\Message\Traits\GatewayNotificationResponseTrait;
+use Paytic\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
 
 /**
  * Class CompletePurchaseResponse
