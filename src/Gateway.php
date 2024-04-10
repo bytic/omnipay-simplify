@@ -6,11 +6,10 @@ use Paytic\Omnipay\Simplify\Message\CaptureRequest;
 use Paytic\Omnipay\Simplify\Message\CompletePurchaseRequest;
 use Paytic\Omnipay\Simplify\Message\CreateCheckoutSessionRequest;
 use Paytic\Omnipay\Simplify\Message\PurchaseRequest;
-//use Paytic\Omnipay\Paylike\Message\ServerCompletePurchaseRequest;
 use Paytic\Omnipay\Simplify\Message\RetrieveOrderRequest;
 use Paytic\Omnipay\Simplify\Traits\HasApiParamsTrait;
 use Paytic\Omnipay\Simplify\Traits\HasAuthParamsTrait;
-use Omnipay\Common\AbstractGateway;
+use Paytic\Omnipay\Common\Gateway\AbstractGateway;
 use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\Common\Message\RequestInterface;
 
